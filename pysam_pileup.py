@@ -28,7 +28,7 @@ def main():
     (options, args)=parser.parse_args()
 
     bamfilename=args[0]
-    bedfh=open(options.intervalfile,'r')
+    bedfh=open(options.bedfile,'r')
 
     if os.path.exists(bamfilename+".bai") == False:
         sys.stderr.write("please check for existence of bam index file (*.bai)\n")
