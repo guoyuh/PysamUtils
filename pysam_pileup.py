@@ -37,7 +37,7 @@ def main():
 
     pybamfile = pysam.Samfile(bamfilename, "rb" )
     print "#chrom targetStart targetEnd base A_count C_count G_count T_count N_count"
-    for coord_tuple in yield_bedcoordinate(intervalfh):
+    for coord_tuple in yield_bedcoordinate(bedfh):
         (chrom, start, end ) = coord_tuple
         if 'chr' in chrom:
             newchrom=string.replace(chrom, 'chr','')
