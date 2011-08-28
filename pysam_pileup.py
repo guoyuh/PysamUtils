@@ -55,7 +55,7 @@ def main():
                 seqdict[ pileupread.alignment.seq[pileupread.qpos] ] +=1
             for nt in ('A', 'C', 'G', 'T', 'N'):
                 sys.stdout.write( str(seqdict[nt]) + " ")
-            print
+            print if end == pileupcolumn.pos
         sys.stdout.write("\n")
     pybamfile.close()
 
