@@ -26,8 +26,8 @@ def refcount (datadict, refallele):
 def main():
     usage = "usage: %prog [options] pileup.output.txt\n \n print  output lines from pysam_pileup.py \n that fail filters  based on min depth and min alt allele count of pileup counts at positions\n"
     parser = OptionParser(usage)
-    parser.add_option("--depth", type="int", dest="depth", default = 0, help="keep lines with at least coverage at least greater than  depth (default 0)")
-    parser.add_option("--alt", type="int", dest="alt", default=0, help="keep lines with at # of non-ref alleles greater than to nonref (default 0)")
+    parser.add_option("--depth", type="int", dest="depth", default = 5, help="keep lines with at least coverage at least greater than  depth (default 5)")
+    parser.add_option("--alt", type="int", dest="alt", default=5, help="keep lines with at # of non-ref alleles greater than to nonref (default 5)")
     parser.add_option("--twobit", type="string", dest="tbf", help="two bit file")
     parser.add_option("--v", action="store_true", dest="reverse",  help="print regions that  pass filters ")
 
