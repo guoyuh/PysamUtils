@@ -65,6 +65,8 @@ def main():
         outfh.write(" | " + options.ogap + " -f " + options.refbin+"/"+options.ref + " \ "  + "\n")
         #| /share/home/indapa/software/freebayes/bin/bamleftalign -f /d2/data/references/build_37/human_reference_v37.fa \
         outfh.write(" | " + options.freebayes+"/bamleftalign -f" + " " + options.refbin+"/"+options.ref + " \ "  + "\n")
+        #| /share/software/samtools/samtools-0.1.12a/samtools  fillmd -Aru -  /d2/data/references/build_37/human_reference_v37.fa \ 2> /dev/null \
+        outfh.write( "|" + options.samtools + " - " +  " " +  options.refbin+"/"+options.ref + "2> /dev/null > " + options.outputbam + "\n")
 
         outfh.close()
 
