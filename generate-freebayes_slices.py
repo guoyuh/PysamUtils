@@ -58,7 +58,7 @@ def main():
         start=string(int(start)-options.window)
         end=string(int(start)+options.window)
         regionstring=chr+":"+start+".."+end
-        tempfile="."join( [ "temp", options.output, regionstring, "sh"])
+        tempfile=".".join( [ "temp", options.output, regionstring, "sh"])
         outfh = open(tempfile,'w')
         outfh.write(options.bamtools + " " + "filter script /share/home/indapa/software/MOSAIK/bin/properpairs.json -region  " + regionstring + " -in " + bamfile + "\ " + "\n")
 
