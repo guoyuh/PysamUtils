@@ -64,7 +64,7 @@ def main():
 
 
 
-        close(outfh)
+       outfh.close()
 
 if __name__ == "__main__":
     main()
