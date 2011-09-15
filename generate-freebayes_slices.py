@@ -44,7 +44,7 @@ def main():
 
     bedfh=open(options.bedfile, 'r')
 
-    for coord_tuple in yield_bedcoordinate(bedfh)
+    for coord_tuple in yield_bedcoordinate(bedfh):
         print coord_tuple
 
 
