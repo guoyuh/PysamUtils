@@ -30,6 +30,8 @@ def main():
     parser.add_option("--baq", type="string", default="/share/software/samtools/samtools-0.1.16/samtools calmd -AEru ", dest="baq", help="BAQ executable")
     parser.add_option("--freebayes", type="string", default="/share/home/indapa/software/freebayes/bin", dest="freebayes", help="freebayes executable")
     parser.add_option("--bamtools", type="string", default="/share/software/bamtools/bin/bamtools filter", dest="bamtools", help="bam tools executable")
+
+    parser.add_option("--output", type="string", default="fb", dest="output", help="output prefix of bam file")
     (options, args)=parser.parse_args()
 
     bamfile=args[0]
@@ -45,8 +47,13 @@ def main():
     bedfh=open(options.bedfile, 'r')
 
     for coord_tuple in yield_bedcoordinate(bedfh):
+        #now we want to generate shell script that will get the subset of the orginal bam around the region of interest defined by the bed coordinates
         print coord_tuple
-
+        (chr, start, end)=coord_tuple
+        regionstring=chr+":"+start+".."+end
+        print regionstring
+        outputbam=".".join( ["igv", options.output, regionstring, "bam"])
+        print outputbam
 
 
 if __name__ == "__main__":
