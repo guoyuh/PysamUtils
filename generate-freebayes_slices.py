@@ -55,9 +55,9 @@ def main():
         outputbam=".".join( ["igv", options.output, regionstring, "bam"])
         print outputbam
 
-        start=string(int(start)-options.window)
-        end=string(int(start)+options.window)
-        regionstring=chr+":"+start+".."+end
+        start=int(start)-options.window
+        end=int(start)+options.window
+        regionstring=chr+":"+str(start)+".."+str(end)
         tempfile=".".join( [ "temp", options.output, regionstring, "sh"])
         outfh = open(tempfile,'w')
         outfh.write(options.bamtools + " " + "filter script /share/home/indapa/software/MOSAIK/bin/properpairs.json -region  " + regionstring + " -in " + bamfile + "\ " + "\n")
