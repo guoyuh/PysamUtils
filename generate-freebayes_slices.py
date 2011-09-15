@@ -57,6 +57,7 @@ def main():
 
         start=int(start)-options.window
         end=int(start)+options.window
+        print start, end
         regionstring=chr+":"+str(start)+".."+str(end)
         tempfile=".".join( [ "temp", options.output, regionstring, "sh"])
         outfh = open(tempfile,'w')
