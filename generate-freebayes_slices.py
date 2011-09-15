@@ -60,8 +60,8 @@ def main():
         regionstring=chr+":"+str(start)+".."+str(end)
         tempfile=".".join( [ "temp", options.output, regionstring, "sh"])
         outfh = open(tempfile,'w')
-        outfh.write(options.bamtools + " " + "filter script /share/home/indapa/software/MOSAIK/bin/properpairs.json -region  " + regionstring + " -in " + bamfile + "\ " + "\n")
-
+        outfh.write(options.bamtools + " " + " -script /share/home/indapa/software/MOSAIK/bin/properpairs.json -region  " + regionstring + " -in " + bamfile + " \ " + "\n")
+        outfh.write(" | " + options.ogap + " -f " + options.refbin+"/"+options.ref + " \ "  + "\n"
 
 
         outfh.close()
