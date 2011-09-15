@@ -60,9 +60,11 @@ def main():
         regionstring=chr+":"+str(start)+".."+str(end)
         tempfile=".".join( [ "temp", options.output, regionstring, "sh"])
         outfh = open(tempfile,'w')
+
         outfh.write(options.bamtools + " " + " -script /share/home/indapa/software/MOSAIK/bin/properpairs.json -region  " + regionstring + " -in " + bamfile + " \ " + "\n")
         outfh.write(" | " + options.ogap + " -f " + options.refbin+"/"+options.ref + " \ "  + "\n")
-
+        #| /share/home/indapa/software/freebayes/bin/bamleftalign -f /d2/data/references/build_37/human_reference_v37.fa \
+        outfh.write(" | " + options.freebayes+"/bamleftalign -f" + " " + options.refbin+"/"+options.ref + " \ "  + "\n")
 
         outfh.close()
 
