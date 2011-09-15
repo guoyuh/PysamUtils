@@ -54,7 +54,7 @@ def main():
         print regionstring
         outputbam=".".join( ["igv", options.output, regionstring, "bam"])
         print outputbam
-
+        print start, end
         start=int(start)-options.window
         end=int(start)+options.window
         print start, end
