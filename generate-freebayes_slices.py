@@ -36,9 +36,9 @@ def main():
 
     bamfile=args[0]
 
-    if os.path.isfile(bamfile) == False:
-        sys.stderr.write("bam file doesn't exists! " + bamfile +"\n")
-        exit(1)
+    #if os.path.isfile(bamfile) == False:
+    #    sys.stderr.write("bam file doesn't exists! " + bamfile +"\n")
+    #    exit(1)
 
     if os.path.isfile(options.bedfile) == False:
         sys.stderr.write("bed file doesn't exist! " + options.bedfile + "\n")
@@ -62,14 +62,14 @@ def main():
         tempfile=".".join( [ "temp", options.output, regionstring, "sh"])
         outfh = open(tempfile,'w')
 
-        outfh.write(options.bamtools + " " + " -script /share/home/indapa/software/MOSAIK/bin/properpairs.json -region  " + regionstring + " -in " + bamfile + " \"" + "\n")
-        outfh.write(" | " + options.ogap + " -f " + options.refbin+"/"+options.ref + "\""  + "\n")
+        outfh.write(options.bamtools + " " + " -script /share/home/indapa/software/MOSAIK/bin/properpairs.json -region  " + regionstring + " -in " + bamfile + " \\" + "\n")
+        outfh.write(" | " + options.ogap + " -f " + options.refbin+"/"+options.ref + " \\"  + "\n")
         #| /share/home/indapa/software/freebayes/bin/bamleftalign -f /d2/data/references/build_37/human_reference_v37.fa \
-        outfh.write(" | " + options.freebayes+"/bamleftalign -f" + " " + options.refbin+"/"+options.ref + "\""  + "\n")
+        outfh.write(" | " + options.freebayes+"/bamleftalign -f" + " " + options.refbin+"/"+options.ref + " \\"  + "\n")
         #| /share/software/samtools/samtools-0.1.12a/samtools  fillmd -Aru -  /d2/data/references/build_37/human_reference_v37.fa \ 2> /dev/null \
         outfh.write( "| " + options.baq + " - " +  " " +  options.refbin+"/"+options.ref + " 2> /dev/null > " + outputbam + "\n")
 
         outfh.close()
-
+        exit(1)
 if __name__ == "__main__":
     main()
