@@ -52,13 +52,13 @@ def main():
         print coord_tuple
         (chr, start, end)=coord_tuple
         regionstring=chr+":"+start+".."+end
-        print regionstring
+        #print regionstring
         outputbam=".".join( ["igv", options.output, regionstring, "bam"])
-        print outputbam
-        print start, end
+        #
+        #print start, end
         start=int(start)-options.window
         end=int(start)+options.window+options.window
-        print start, end
+        #print start, end
         regionstring=chr+":"+str(start)+".."+str(end)
         tempfile=".".join( [ "temp", options.output, regionstring, "sh"])
         outfh = open(tempfile,'w')
@@ -74,6 +74,7 @@ def main():
         outfh.close()
 
         sys.stderr.write("running " + tempfile + "\n")
+        sys.stderr.write("output written to " + outputbam + "\n")
         chmodstring= "chmod +x " + tempfile
         runstring="./"+tempfile
         os.system(chmodstring)
