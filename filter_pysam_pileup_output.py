@@ -51,12 +51,20 @@ def main():
     fields=headerline.strip().split (' ')
 
     fields = [elem for elem in fields if elem != '']
-    
+    bitseen = {}
     for line in pileupfh:
         if '#' in line: continue
         line= line.strip()
         line=line.replace('chr','')
         datafields=line.strip().split(' ')
+        coord_string = " ".join( datafields[0:3])
+        #print coord_string
+        if coord_string not in bitseen.keys():
+            bitseen[coord_string]=1
+        else:
+             bitseen[coord_string]+=1
+             continue
+        
         datafields=[elem for elem in datafields if elem != '']
         datafields = [int(x) for x in datafields]
         datadict = dict(zip(fields, datafields))
