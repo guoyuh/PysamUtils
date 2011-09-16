@@ -3,6 +3,7 @@ import sys
 import os
 import string
 import re
+import subprocess
 from optparse import OptionParser
 
 
@@ -68,9 +69,15 @@ def main():
         outfh.write(" | " + options.freebayes+"/bamleftalign -f" + " " + options.refbin+"/"+options.ref + " \\"  + "\n")
         #| /share/software/samtools/samtools-0.1.12a/samtools  fillmd -Aru -  /d2/data/references/build_37/human_reference_v37.fa \ 2> /dev/null \
         outfh.write( "| " + options.baq + " - " +  " " +  options.refbin+"/"+options.ref + " 2> /dev/null > " + outputbam + "\n")
-        outfh.write(" chmod +x " + tempfile + "\n")
+        #outfh.write(" chmod +x " + tempfile + "\n")
         outfh.write( options.bamtoolsindex + " -in " + outputbam + "\n" )
         outfh.close()
-       
+
+        sys.stderr.write("running " + outputbam + "\n")
+        chmodstring= "chmod +x " + tempfile
+        runstring="./"+tempfile
+        os.system(chmodstring)
+        os.system(runstring)
+
 if __name__ == "__main__":
     main()
