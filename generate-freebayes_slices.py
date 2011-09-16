@@ -49,7 +49,7 @@ def main():
 
     for coord_tuple in yield_bedcoordinate(bedfh):
         #now we want to generate shell script that will get the subset of the orginal bam around the region of interest defined by the bed coordinates
-        print coord_tuple
+        
         (chr, start, end)=coord_tuple
         regionstring=chr+":"+start+".."+end
         #print regionstring
@@ -73,6 +73,7 @@ def main():
         outfh.write( options.bamtoolsindex + " -in " + outputbam + "\n" )
         outfh.close()
 
+        #we do a system call on the shell script we just wrote
         sys.stderr.write("running " + tempfile + "\n")
         sys.stderr.write("output written to " + outputbam + "\n")
         chmodstring= "chmod +x " + tempfile
