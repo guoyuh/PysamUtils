@@ -73,7 +73,7 @@ def main():
         outfh.write( options.bamtoolsindex + " -in " + outputbam + "\n" )
         outfh.close()
 
-        sys.stderr.write("running " + outputbam + "\n")
+        sys.stderr.write("running " + tempfile + "\n")
         chmodstring= "chmod +x " + tempfile
         runstring="./"+tempfile
         os.system(chmodstring)
