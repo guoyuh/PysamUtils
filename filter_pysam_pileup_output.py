@@ -53,6 +53,7 @@ def main():
     fields = [elem for elem in fields if elem != '']
     
     for line in pileupfh:
+        if '#' in line: continue
         line= line.strip()
         line=line.replace('chr','')
         datafields=line.strip().split(' ')
