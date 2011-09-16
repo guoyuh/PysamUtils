@@ -29,8 +29,8 @@ def main():
     parser.add_option("--ogap", type="string", default="/share/software/ogap/ogap", dest="ogap", help="ogap exectuable")
     parser.add_option("--baq", type="string", default="/share/software/samtools/samtools-0.1.16/samtools calmd -AEru ", dest="baq", help="BAQ executable")
     parser.add_option("--freebayes", type="string", default="/share/home/indapa/software/freebayes/bin", dest="freebayes", help="freebayes executable")
-    parser.add_option("--bamtools", type="string", default="/share/software/bamtools/bin/bamtools filter", dest="bamtools", help="bam tools executable")
-
+    parser.add_option("--bamtoolsfilter", type="string", default="/share/software/bamtools/bin/bamtools filter", dest="bamtools", help="bam tools filter executable")
+    parser.add_option("--bamtoolsindex", type="string", default="/share/software/bamtools/bin/bamtools index", dest="bamtoolsindex", help="bam tools index executable")
     parser.add_option("--output", type="string", default="fb", dest="output", help="output prefix of bam file")
     (options, args)=parser.parse_args()
 
@@ -68,8 +68,8 @@ def main():
         outfh.write(" | " + options.freebayes+"/bamleftalign -f" + " " + options.refbin+"/"+options.ref + " \\"  + "\n")
         #| /share/software/samtools/samtools-0.1.12a/samtools  fillmd -Aru -  /d2/data/references/build_37/human_reference_v37.fa \ 2> /dev/null \
         outfh.write( "| " + options.baq + " - " +  " " +  options.refbin+"/"+options.ref + " 2> /dev/null > " + outputbam + "\n")
-
+        outfh.write( options.bamtoolsindex + " -in " + outputbam + "\n" )
         outfh.close()
-        exit(1)
+       
 if __name__ == "__main__":
     main()
