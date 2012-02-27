@@ -48,6 +48,8 @@ def main():
     #open the sam/bam file    
     samfile = pysam.Samfile(bamfilename, 'rb')
 
+    #target counter
+    i=1
     #iterate thru the bed coordinates
     for coord_tuple in yield_bedcoordinate(bedfh):
         (chrom, start, end ) = coord_tuple
@@ -55,7 +57,7 @@ def main():
         if 'chr' in chrom:
             newchrom=string.replace(chrom, 'chr','')
             chrom=newchrom
-
+        targetid =i
         
         #now fetch the reads that are in the bed interval (chrom, start, stop)
         for alignedread in samfile.fetch(chrom, start, end):
@@ -80,8 +82,9 @@ def main():
                 #if so increment the number of reads starting in the region
                 readcount +=1
         #print the total number of reads starting in the region            
-        outstring = "\t".join( [chrom, str(start), str(end), str(readcount), bamfilename ] )
+        outstring = "\t".join( [chrom, str(start), str(end), str(readcount), 'target.'+str(i) +  bamfilename ] )
         print outstring
+        i+=1
         
 if __name__ == "__main__":
     main()
