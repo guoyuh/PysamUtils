@@ -5,7 +5,7 @@ import string
 import re
 from optparse import OptionParser
 import pysam
-
+from bx.bitset_builders import *
 
 """ iterator to yield coordinates in a bed file """
 def yield_bedcoordinate(fh):
@@ -37,6 +37,9 @@ def main():
     bamfilename=args[0]
     bedfh=open(options.bedfile,'r')
 
+    #read the bed file in to a bitset 
+    bitsets = binned_bitsets_from_file( open( options.bedfile ) )
+
     if os.path.exists(bamfilename+".bai") == False:
         sys.stderr.write("please check for existence of bam index file (*.bai)\n")
         exit(1)
@@ -54,6 +57,7 @@ def main():
                 print alignedread
                 print alignedread.pos, alignedread.aend
 
-
+                if chrom in bitsets and bitsets[chrom].count_range( start-1, start ) >= 1:
+                    print "read starts in target region: ",  alignedread.pos, alignedread.aend
 if __name__ == "__main__":
     main()
