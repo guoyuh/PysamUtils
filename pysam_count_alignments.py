@@ -28,6 +28,8 @@ def main():
     parser.add_option("--bq", type ="float", dest="bq", default =20. , help="Exclude bases from analysis if their supporting base quality is less that --bq (default is 20)")
 
     (options, args)=parser.parse_args()
+    
+
     if options.bedfile == None:
         sys.stderr.write("please provide a bed file!\n")
         exit(1)
@@ -39,7 +41,7 @@ def main():
         sys.stderr.write("please check for existence of bam index file (*.bai)\n")
         exit(1)
 
-    samfile = pysam.Samfile(options.bamfilename, 'rb')
+    samfile = pysam.Samfile(bamfilename, 'rb')
 
     for coord_tuple in yield_bedcoordinate(bedfh):
         (chrom, start, end ) = coord_tuple
