@@ -82,7 +82,7 @@ def main():
                 #if so increment the number of reads starting in the region
                 readcount +=1
         #print the total number of reads starting in the region            
-        outstring = "\t".join( [chrom, str(start), str(end), str(readcount), 'target.'+str(i) +  bamfilename ] )
+        outstring = "\t".join( [chrom, str(start), str(end), str(i), str(readcount),   bamfilename ] )
         print outstring
         i+=1
         
