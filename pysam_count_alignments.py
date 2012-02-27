@@ -57,8 +57,8 @@ def main():
             print chrom, start, end
             #now fetch the reads that are in the bed interval (chrom, start, stop)
             for alignedread in samfile.fetch(chrom, start, end):
-                print alignedread
-                print alignedread.pos, alignedread.aend
+                #print alignedread
+                #print alignedread.pos, alignedread.aend
                 # now check and see if the alignment start posiiton starts in a target region
                 if chrom in bitsets and bitsets[chrom].count_range( alignedread.pos-1, alignedread.pos ) >= 1:
                     print "read starts in target region: ",  alignedread.pos, alignedread.aend
