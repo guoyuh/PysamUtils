@@ -26,7 +26,8 @@ def main():
     parser.add_option("--bed", type="string", dest="bedfile", help="bed file of coordinates", default=None)
     parser.add_option("--mapq", type="float", dest="mapq", default=30., help="Exclude alignments from analysis if they have a mapping less than mapq (default is 30)")
     parser.add_option("--bq", type ="float", dest="bq", default =20. , help="Exclude bases from analysis if their supporting base quality is less that --bq (default is 20)")
-
+    parser.add_option("--includeDuplicates", action="store_false", dest="duplicate", help="include duplicate marked reads in analysis (turned off by default) ")
+    
     (options, args)=parser.parse_args()
     
 
@@ -54,19 +55,33 @@ def main():
         if 'chr' in chrom:
             newchrom=string.replace(chrom, 'chr','')
             chrom=newchrom
-            print chrom, start, end
-            #now fetch the reads that are in the bed interval (chrom, start, stop)
-            for alignedread in samfile.fetch(chrom, start, end):
-                #print alignedread
-                #print alignedread.pos, alignedread.aend
-                # now check and see if the alignment start posiiton starts in a target region
-                if chrom in bitsets and bitsets[chrom].count_range( alignedread.pos-1, alignedread.pos ) >= 1:
-                    print "read starts in target region: ",  alignedread.pos, alignedread.aend
-                    #if so increment the number of reads starting in the region
-                    readcount +=1
+
+        
+        #now fetch the reads that are in the bed interval (chrom, start, stop)
+        for alignedread in samfile.fetch(chrom, start, end):
+            if alignedread.is_duplicate == True and options.duplicate == False:
+                continue
+            if alignedread.mapq < options.mapq:
+                continue
+            if (alignedread.is_proper_pair == False):
+                continue            
+            #print alignedread
+            if ( alignedread.aend == None or alignedread.pos == None):
+                print alignedread.qname, alignedread.pos, alignedread.aend
+                continue
+            if ( alignedread.aend < alignedread.pos):
+                print alignedread.qname +  " end less  than start!\n"
+                print alignedread.qname, alignedread.pos, alignedread.aend
+                continue
+
+            # now check and see if the alignment start posiiton starts in a target region
+            if chrom in bitsets and bitsets[chrom].count_range( alignedread.pos, 1 ) >= 1:
+                #print "read starts in target region: ",  alignedread.pos, alignedread.aend, start, end
+                #if so increment the number of reads starting in the region
+                readcount +=1
         #print the total number of reads starting in the region            
         outstring = "\t".join( [chrom, str(start), str(end), str(readcount), bamfilename ] )
         print outstring
-
+        
 if __name__ == "__main__":
     main()
