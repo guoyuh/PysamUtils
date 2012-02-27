@@ -44,20 +44,29 @@ def main():
         sys.stderr.write("please check for existence of bam index file (*.bai)\n")
         exit(1)
 
+    #open the sam/bam file    
     samfile = pysam.Samfile(bamfilename, 'rb')
 
+    #iterate thru the bed coordinates
     for coord_tuple in yield_bedcoordinate(bedfh):
         (chrom, start, end ) = coord_tuple
+        readcount=0
         if 'chr' in chrom:
             newchrom=string.replace(chrom, 'chr','')
             chrom=newchrom
             print chrom, start, end
-            
+            #now fetch the reads that are in the bed interval (chrom, start, stop)
             for alignedread in samfile.fetch(chrom, start, end):
                 print alignedread
                 print alignedread.pos, alignedread.aend
-
+                # now check and see if the alignment start posiiton starts in a target region
                 if chrom in bitsets and bitsets[chrom].count_range( alignedread.pos-1, alignedread.pos ) >= 1:
                     print "read starts in target region: ",  alignedread.pos, alignedread.aend
+                    #if so increment the number of reads starting in the region
+                    readcount +=1
+        #print the total number of reads starting in the region            
+        outstring = "\t".join( [chrom, str(start), str(end), str(readcount), bamfilename ] )
+        print outstring
+
 if __name__ == "__main__":
     main()
