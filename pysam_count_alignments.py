@@ -39,6 +39,8 @@ def main():
         sys.stderr.write("please check for existence of bam index file (*.bai)\n")
         exit(1)
 
+    samfile = pysam.Samfile(options.bamfilename, 'rb')
+
     for coord_tuple in yield_bedcoordinate(bedfh):
         (chrom, start, end ) = coord_tuple
         if 'chr' in chrom:
