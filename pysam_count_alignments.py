@@ -52,6 +52,7 @@ def main():
             
             for alignedread in samfile.fetch(chrom, start, end):
                 print alignedread
+                print alignedread.pos, alignedread.aend
 
 
 if __name__ == "__main__":
