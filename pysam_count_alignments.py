@@ -57,7 +57,7 @@ def main():
                 print alignedread
                 print alignedread.pos, alignedread.aend
 
-                if chrom in bitsets and bitsets[chrom].count_range( start-1, start ) >= 1:
+                if chrom in bitsets and bitsets[chrom].count_range( alignedread.pos-1, alignedread.pos ) >= 1:
                     print "read starts in target region: ",  alignedread.pos, alignedread.aend
 if __name__ == "__main__":
     main()
