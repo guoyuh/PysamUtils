@@ -57,7 +57,7 @@ def main():
     for coord_tuple in yield_bedcoordinate(bedfh):
         (chr, start, end)=coord_tuple
         regionstring=chr+":"+start+".."+end
-        bamfilename=".".join( [ options.prefix, regionstring, 'bam' ] )
+        bamfilename=".".join( [ options.bamprefix, regionstring, 'bam' ] )
 
         for alignedread in bam.fetch( chr, int(start), int(end) ):
             print alignedread
