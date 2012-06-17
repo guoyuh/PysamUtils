@@ -24,7 +24,8 @@ def main():
     usage = "usage: %prog [options] bamfile  \n generate a shell script that generates locus specific BAM file of a certain   window size around bed coordinates for a given orignal BAM file\n\n"
     parser = OptionParser(usage)
     parser.add_option("--bedfile", type="string", dest="bedfile", help="bedfile")
-    parser.add_option("--window", type="int", default=100, dest="window", help="window" )
+    parser.add_option("--upstreampad", type="int", default=100, dest="upstream", help="upstream" )
+    parser.add_option("--downstreampad", type="int", default=100, dest="downstream", help="downstream" )
     parser.add_option("--ref", type="string", default="human_reference_v37.fa", dest="ref", help="name of reference assembly (fasta) file (.fa)")
     parser.add_option("--bamprefix", type="string", default=None, dest="bamprefix", help="output prefix of bam file")
 
@@ -58,8 +59,9 @@ def main():
         (chr, start, end)=coord_tuple
         regionstring=chr+":"+start+".."+end
         bamfilename=".".join( [ options.bamprefix, regionstring, 'bam' ] )
-
-        for alignedread in bam.fetch( chr, int(start), int(end) ):
+        print coord_tuple
+        print chr, str( int(start)-options.upstream) , str( int(end)+options.downstream )
+        for alignedread in bam.fetch( chr, int(start)-options.upstream, int(end)+options.downstream ):
             print alignedread
 
 
