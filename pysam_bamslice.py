@@ -60,7 +60,7 @@ def main():
         regionstring=chr+":"+start+".."+end
         bamfilename=".".join( [ options.bamprefix, regionstring, 'bam' ] )
 
-        outbam = pysam.Samfile(bamfilename, "wb", template=samfile)
+        outbam = pysam.Samfile(bamfilename, "wb", template=bam)
 
 
         print coord_tuple
