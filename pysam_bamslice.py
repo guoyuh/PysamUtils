@@ -66,7 +66,7 @@ def main():
         print coord_tuple
         print chr, str( int(start)-options.upstream) , str( int(end)+options.downstream )
         for alignedread in bam.fetch( chr, int(start)-options.upstream, int(end)+options.downstream ):
-            if alignedread.ispaired:
+            if alignedread.is_paired:
                 outbam.write(alignedread)
         outbam.close()
 
