@@ -58,13 +58,18 @@ def main():
     for coord_tuple in yield_bedcoordinate(bedfh):
         (chr, start, end)=coord_tuple
         regionstring=chr+":"+start+".."+end
+        regionstring=":".join( [ chr, str( int(start)-options.upstream),  str( int(end)+options.downstream )  ])
         bamfilename=".".join( [ options.bamprefix, regionstring, 'bam' ] )
 
+        #now create a bamfile for the region defined by the bed coordinate, plus/minus the pad
+        #the bamfile is names as bamfileprefix.regionstring.bam
         outbam = pysam.Samfile(bamfilename, "wb", template=bam)
 
 
         print coord_tuple
         print chr, str( int(start)-options.upstream) , str( int(end)+options.downstream )
+
+        #now for each aligned read in the region, write it to the bam file
         for alignedread in bam.fetch( chr, int(start)-options.upstream, int(end)+options.downstream ):
             if alignedread.is_paired:
                 outbam.write(alignedread)
