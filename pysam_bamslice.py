@@ -59,12 +59,18 @@ def main():
         (chr, start, end)=coord_tuple
         regionstring=chr+":"+start+".."+end
         bamfilename=".".join( [ options.bamprefix, regionstring, 'bam' ] )
+
+        outbam = pysam.Samfile(bamfilename, "wb", template=samfile)
+
+
         print coord_tuple
         print chr, str( int(start)-options.upstream) , str( int(end)+options.downstream )
         for alignedread in bam.fetch( chr, int(start)-options.upstream, int(end)+options.downstream ):
-            print alignedread
+            if alignedread.ispaired:
+                outbam.write(alignedread)
+        outbam.close()
 
-
+    bam.close()
 
 if __name__ == "__main__":
     main()
