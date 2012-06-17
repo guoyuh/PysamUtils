@@ -5,7 +5,7 @@ import string
 import re
 import subprocess
 from optparse import OptionParser
-
+import pysam
 
 def yield_bedcoordinate(fh):
     """" yield a tuple of (chr, start,end) from bed file """
