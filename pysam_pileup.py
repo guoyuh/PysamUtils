@@ -51,7 +51,7 @@ def main():
                 continue
             sys.stdout.write('chr'+chrom+ " " + str(start) +  " " + str(end) + " " + str(pileupcolumn.pos) + " ")
 
-            #print 'coverage at base %s = %s' % (pileupcolumn.pos , pileupcolumn.n)
+            print 'coverage at base %s = %s' % (pileupcolumn.pos , pileupcolumn.n)
             seqdict={}
             for (base,count) in ( ('A',0), ('C',0), ('G',0), ('T',0), ('N',0) ):
                 seqdict[base]=count
