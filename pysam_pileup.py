@@ -47,7 +47,7 @@ def main():
 
         for pileupcolumn in pybamfile.pileup( chrom, start, end):
 
-            if pileupcolumn.pos != start:
+            if pileupcolumn.pos != end:
                 continue
             sys.stdout.write('chr'+chrom+ " " + str(start) +  " " + str(end) + " " + str(pileupcolumn.pos) + " ")
 
