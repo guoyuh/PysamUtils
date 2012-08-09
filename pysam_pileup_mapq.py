@@ -60,6 +60,7 @@ def main():
                     continue
                 if pileupread.alignment.mapq == 0:
                     mqzero_count+=1
+                    print pileupread.alignment.qname
             sys.stdout.write("\n")
             print float(mqzero_count)/float(pileupcolumn.n)
             #print pileupcolumn.pos
