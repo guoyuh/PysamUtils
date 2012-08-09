@@ -53,12 +53,15 @@ def main():
 
             print 'coverage at base %s = %s' % (pileupcolumn.pos , pileupcolumn.n)
             seqdict={}
+            mqzero_count=0;
             for pileupread in pileupcolumn.pileups:
                #print '\tbase in read %s = %s' % (pileupread.alignment.qname, pileupread.alignment.seq[pileupread.qpos])
                 if  ( ord ( pileupread.alignment.qual[ pileupread.qpos ] )  - 33 ) < options.bq: 
                     continue
-                print pileupread.alignment.mapq
+                if pileupread.alignment.mapq == 0:
+                    mqzero_count+=1
             sys.stdout.write("\n")
+            print mqzero_count
             #print pileupcolumn.pos
         #sys.stdout.write("\n")
     pybamfile.close()
