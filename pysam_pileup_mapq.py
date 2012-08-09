@@ -61,7 +61,7 @@ def main():
                 if pileupread.alignment.mapq == 0:
                     mqzero_count+=1
             sys.stdout.write("\n")
-            print mqzero_count/pileupcolumn.n
+            print float(mqzero_count)/float(pileupcolumn.n)
             #print pileupcolumn.pos
         #sys.stdout.write("\n")
     pybamfile.close()
