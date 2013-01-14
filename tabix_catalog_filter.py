@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import pysam
+import sys
 from optparse import OptionParser
 """ 
 I want to do a hard filter against a variant catalog.  Print only those records that are not present in a
