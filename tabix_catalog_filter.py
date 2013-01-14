@@ -29,6 +29,8 @@ def main():
     (options, args)=parser.parse_args()
     vcfile=args[0]
     pysamTbi= pysam.Tabixfile(vcfile, "r")
+    #print the headerlines of the vcf file
+    print "\n".join ( list( pysamTbi.header ) )
     catalogTbi=pysam.Tabixfile(options.catalogvcf, "r")
     for row in pysamTbi.fetch():
         fields=row.split("\t")
