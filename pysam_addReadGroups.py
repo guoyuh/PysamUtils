@@ -9,8 +9,8 @@ import pysam
 
 def main():
     """ add a the RG tag to the sam/bam record as well as update the header
-        right now assumes single sample in the sam/bam file so can only add one RG/SM tag
-        output is written to file.RG.bam based on the input file.bam prefix """
+        right now assumes single sample in the sam/bam file so can only add one RG/SM tag """
+    
     usage = "usage: %prog [options] file.bam"
     parser = OptionParser(usage)
     parser.add_option("--RG", type="string", dest="rgid", help="readgroup id")
