@@ -51,7 +51,7 @@ def main():
                 continue
             sys.stdout.write('chr'+chrom+ " " + str(start) +  " " + str(end) + " " + str(pileupcolumn.pos) + " ")
 
-            print 'coverage at base %s = %s' % (pileupcolumn.pos , pileupcolumn.n)
+            #print 'coverage at base %s = %s' % (pileupcolumn.pos , pileupcolumn.n)
             seqdict={}
             for (base,count) in ( ('A',0), ('C',0), ('G',0), ('T',0), ('N',0) ):
                 seqdict[base]=count
@@ -64,9 +64,9 @@ def main():
                 if  pileupread.alignment.mapq < options.mapq: 
                     continue
 
-                if  ( ord ( pileupread.alignment.qual[ pileupread.qpos ] )  - 33 ) < options.bq: 
+                if  ( ord ( pileupread.alignment.qual[ pileupread.qpos-1 ] )  - 33 ) < options.bq: 
                     continue
-                seqdict[ pileupread.alignment.seq[pileupread.qpos] ] +=1
+                seqdict[ pileupread.alignment.seq[pileupread.qpos-1] ] +=1
             for nt in ('A', 'C', 'G', 'T', 'N'):
                 sys.stdout.write( str(seqdict[nt]) + " ")
             sys.stdout.write("\n")
